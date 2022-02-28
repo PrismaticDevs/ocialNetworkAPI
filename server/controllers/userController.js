@@ -14,7 +14,7 @@ module.exports = {
             const newUser = await User.create({
                 username,
                 email,
-                hashedPassword,
+                password: hashedPassword,
             });
             res.json(newUser);
         } catch (error) {
