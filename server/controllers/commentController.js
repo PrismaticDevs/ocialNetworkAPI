@@ -21,7 +21,7 @@ module.exports = {
         }
     },
     getCommentById: async(req, res) => {
-        const commentId = req.params;
+        const { commentId } = req.params;
         try {
             const comment = await Comment.findById(commentId);
             res.json(comment);

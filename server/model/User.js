@@ -28,7 +28,7 @@ const userSchema = new Schema({
         required: true,
         trim: true,
         minlength: 8,
-    }
+    },
 });
 
 const User = model('User', userSchema);
