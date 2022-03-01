@@ -1,6 +1,8 @@
 const { isEmail } = require('validator');
 const { User } = require('../model');
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
+const { response } = require('express');
 
 module.exports = {
     createUser: async(req, res) => {
@@ -52,6 +54,13 @@ module.exports = {
         try {
             const deletedUser = await User.findByIdAndDelete(userId);
             res.json(deletedUser);
+        } catch (error) {
+            res.json(error);
+        }
+    },
+    login: async(req, res) => {
+        try {
+
         } catch (error) {
             res.json(error);
         }

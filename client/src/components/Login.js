@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { button, textField, Grid, Typography } from "@mui/material";
 
 export default function Login() {
   const [email, password] = useState("");
@@ -19,8 +18,8 @@ export default function Login() {
       });
   };
   return (
-    <form className="loginForm" onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <form className="loginForm">
+      <h2> Login </h2>
       <input type="email" id="email" placeholder="Email" autoComplete="on" />
       <input
         type="password"
@@ -28,7 +27,7 @@ export default function Login() {
         placeholder="Password"
         autoComplete="on"
       />
-      <button>Submit</button>
+      <button onClick={handleSubmit}> Submit </button>
     </form>
   );
 }
