@@ -5,11 +5,11 @@ router.route('/')
     .get(getAllUsers)
     .post(createUser)
 
+router.post('/login', login)
+
 router.route('/:userId')
     .get(getUserById)
     .put(updateUserById)
     .delete(deleteUserById)
-
-router.post('/login', login)
 
 module.exports = router;

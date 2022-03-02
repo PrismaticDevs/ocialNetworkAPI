@@ -1,8 +1,6 @@
 const { isEmail } = require('validator');
 const { User } = require('../model');
 const bcrypt = require('bcryptjs');
-const axios = require('axios');
-const { response } = require('express');
 
 module.exports = {
     createUser: async(req, res) => {
@@ -59,8 +57,23 @@ module.exports = {
         }
     },
     login: async(req, res) => {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.json('You must enter an email and a password')
+        }
         try {
-
+            const userData = await User.findOne({ email: email });
+            if (!userData) {
+                return res.json("No user with that email");
+            }
+            const isMatchingPassword = await bcrypt.compare(
+                password,
+                userData.password
+            );
+            if (!isMatchingPassword) {
+                return res.json("Invalid password");
+            }
+            res.json(userData.username + " successfully logged in");
         } catch (error) {
             res.json(error);
         }
