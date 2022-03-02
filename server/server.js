@@ -16,4 +16,4 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-app.listen(PORT, () => console.log(`App listening on post ${PORT}`))
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
