@@ -1,50 +1,55 @@
-import axios from "axios";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import axios from "../axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const userRef = useRef();
-  const data = {
-    email: email,
-    password: password,
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setEmail("");
-    setPassword("");
-    axios
-      .post("https://localhost:3001/users/login", data)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log(data);
-        console.log(e);
-      });
+    try {
+      const response = await axios.post(
+        "/users/login",
+        JSON.stringify({
+          email,
+          password,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response.data));
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log(error, 26);
+    }
   };
+
   return (
     <section>
       <form className="loginForm" onSubmit={handleSubmit}>
         <h2> Login </h2>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
-          value={email}
-          ref={userRef}
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           autoComplete="on"
           required
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           autoComplete="on"
           required
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
         <input type="submit" />
       </form>

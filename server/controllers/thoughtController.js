@@ -2,11 +2,9 @@ const { Thought } = require('../model');
 
 module.exports = {
     createThought: async(req, res) => {
-        const { thought } = req.body;
+        const { thought, userId } = req.body;
         try {
-            const newThought = await Thought.create({
-                thought,
-            });
+            const newThought = await Thought.create({ thought, userId, });
             res.json(newThought);
         } catch (error) {
             res.json(error);

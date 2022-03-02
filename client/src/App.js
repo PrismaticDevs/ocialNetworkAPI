@@ -8,7 +8,7 @@ import Login from "./components/Login";
 
 function App() {
   return (
-    <div className="App">
+    <main className="App">
       <header className="App-header">
         <Navbar />
         <Routes>
@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
         </Routes>
       </header>
-    </div>
+    </main>
   );
 }
 
