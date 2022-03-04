@@ -8,18 +8,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "/users/login",
-        JSON.stringify({
+      await axios
+        .post("/users/login", {
           email,
           password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(JSON.stringify(response.data));
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       setEmail("");
       setPassword("");
     } catch (error) {
