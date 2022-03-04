@@ -64,14 +64,14 @@ module.exports = {
         try {
             const userData = await User.findOne({ email: email });
             if (!userData) {
-                return res.json("No user with that email");
+                return res.json("Invalid login credentials");
             }
             const isMatchingPassword = await bcrypt.compare(
                 password,
                 userData.password
             );
             if (!isMatchingPassword) {
-                return res.json("Invalid password");
+                return res.json("Invalid login credentials");
             }
             res.json(userData.username + " successfully logged in");
         } catch (error) {
