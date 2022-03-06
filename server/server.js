@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
-const session = require('express-session');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3001;
@@ -22,7 +21,6 @@ mongoose.connect('mongodb://localhost:27017/server')
     .catch(err => console.log(err));
 
 app.use(cors());
-app.use(session(sessionSettings));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);

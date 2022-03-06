@@ -1,9 +1,9 @@
-import Register from "./Register";
+import Login from "./Login";
+
 function Home() {
   return (
     <div className="Home">
-      <h1>Welcome to the PrismaticDevs Social Scene </h1>
-      <Register />
+      <h1> Welcome to the PrismaticDevs Social Scene </h1> <Login />
     </div>
   );
 }

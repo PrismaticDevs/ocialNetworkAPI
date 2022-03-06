@@ -65,7 +65,7 @@ const Login = () => {
         <input type="submit" />
       </form>
       <h3>
-        Need an account? <a href="/">Register here</a>
+        Need an account? <a href="/register">Register here</a>
       </h3>
     </section>
   );
