@@ -1,22 +1,28 @@
 import { useState } from "react";
 import axios from "../axios";
-let loginMsg;
+let registerMsg;
 let invalid;
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:3001/users/login", {
+        .post("http://localhost:3001/users/", {
+          username,
           email,
           password,
         })
         .then((response) => {
-          loginMsg = response.data;
-          if (loginMsg === "Invalid login credentials") {
+          registerMsg = response.data;
+          if (
+            registerMsg === "Not a valid email address" ||
+            registerMsg === "Password must be at least 8 characters" ||
+            registerMsg.includes("already has an account")
+          ) {
             invalid = true;
           } else {
             invalid = false;
@@ -27,6 +33,7 @@ const Login = () => {
         });
       setEmail("");
       setPassword("");
+      setUsername("");
     } catch (error) {
       console.log(error, 26);
     }
@@ -35,20 +42,30 @@ const Login = () => {
   return (
     <section>
       <form className="loginForm" onSubmit={handleSubmit}>
-        <h2> Login </h2>
+        <h2>Create an Account</h2>
         <h3
-          className="loginMsg"
+          className="registerMsg"
           style={invalid ? { color: "red" } : { color: "green" }}
         >
-          {loginMsg}
+          {registerMsg}
         </h3>
+        <label>Username</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          required
+          autoComplete="off"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+        />
         <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
           placeholder="Email"
-          autoComplete="on"
           required
+          autoComplete="off"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
@@ -57,7 +74,7 @@ const Login = () => {
           type="password"
           id="password"
           placeholder="Password"
-          autoComplete="on"
+          autoComplete="off"
           required
           onChange={(e) => setPassword(e.target.value)}
           value={password}
@@ -65,10 +82,10 @@ const Login = () => {
         <input type="submit" />
       </form>
       <h3>
-        Need an account? <a href="/">Register here</a>
+        Already have an account? <a href="/login">Login here</a>
       </h3>
     </section>
   );
 };
 
-export default Login;
+export default Register;

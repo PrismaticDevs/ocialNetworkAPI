@@ -1,22 +1,32 @@
 const { isEmail } = require('validator');
 const { User } = require('../model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     createUser: async(req, res) => {
         const { username, email, password } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt)
-        if (!isEmail(email)) {
-            req.status(401).json({ error: 'Not a valid email address' });
-        }
         try {
+            if (!isEmail(email)) {
+                return res.json('Not a valid email address');
+            }
+            if (password.length < 8) {
+                return res.json("Password must be at least 8 characters")
+            }
+            const existingUser = await User.findOne({
+                email: email
+            });
+            if (existingUser) {
+                return res.json(email + ' already has an account');
+            }
             const newUser = await User.create({
                 username,
                 email,
                 password: hashedPassword,
             });
-            res.json(newUser);
+            res.json(newUser.username + " successfully registered");
         } catch (error) {
             res.json(error);
         }
@@ -73,9 +83,11 @@ module.exports = {
             if (!isMatchingPassword) {
                 return res.json("Invalid login credentials");
             }
+            const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
+            console.log(jwt.verify(token, process.env.ACCESS_TOKEN));
             res.json(userData.username + " successfully logged in");
         } catch (error) {
             res.json(error);
         }
-    }
+    },
 }
