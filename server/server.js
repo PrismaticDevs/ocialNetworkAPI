@@ -8,12 +8,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-const sessionSettings = {
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-}
-
 mongoose.connect('mongodb://localhost:27017/server')
     .then(async() => {
         console.log('Successfully connected to mongodb');

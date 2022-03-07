@@ -61,7 +61,7 @@ nav a {
 }
 
 nav a:hover {
-    color: black;
+    color: gold;
 }
 
 p {
@@ -87,6 +87,7 @@ p {
     border: none;
     cursor: pointer;
     width: 100%;
+    font-size: 1em;
 }
 
 .loginForm input {

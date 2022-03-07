@@ -86,10 +86,15 @@ module.exports = {
                 return res.json("Invalid login credentials");
             }
             token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
-            console.log(jwt.verify(token, process.env.ACCESS_TOKEN));
             res.json(userData.username + " successfully logged in");
         } catch (error) {
             res.json(error);
         }
+    },
+    loginStatus: (req, res) => {
+        return res.json(token);
+    },
+    logout: (req, res) => {
+        token = null;
     },
 }

@@ -27,6 +27,9 @@ const Register = () => {
           } else {
             invalid = false;
           }
+          setTimeout(() => {
+            window.location.href = "/account";
+          }, 2000);
         })
         .catch((e) => {
           console.log(e);

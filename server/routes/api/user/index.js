@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createUser, getAllUsers, getUserById, updateUserById, deleteUserById, login } = require('../../../controllers/userController');
+const { createUser, getAllUsers, getUserById, updateUserById, deleteUserById, login, loginStatus, logout } = require('../../../controllers/userController');
 
 router.route('/')
     .get(getAllUsers)
@@ -7,7 +7,11 @@ router.route('/')
 
 router.post('/register', createUser)
 
-router.post('/login', login)
+router.get('/logout', logout)
+
+router.route('/login')
+    .post(login)
+    .get(loginStatus)
 
 router.route('/:userId')
     .get(getUserById)

@@ -20,6 +20,9 @@ const Login = () => {
             invalid = true;
           } else {
             invalid = false;
+            setTimeout(() => {
+              window.location.href = "/account";
+            }, 2000);
           }
         })
         .catch((e) => {
