@@ -5,6 +5,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         trim: true,
+        unique: true,
         minLength: 4,
         maxLength: 24,
         required: [true, 'Username is required and must be a minimum of 4 and maximum of 24'],
@@ -14,6 +15,7 @@ const userSchema = new Schema({
         required: true,
         trim: true,
         lowercase: true,
+        unique: true,
         validate: {
             validator: function(value) {
                 return isEmail(value)
@@ -23,6 +25,14 @@ const userSchema = new Schema({
             }
         }
     },
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+        ref: "Thought",
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    }],
     password: {
         type: String,
         required: true,

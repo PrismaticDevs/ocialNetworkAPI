@@ -1,10 +1,22 @@
 const { Schema, model } = require('mongoose');
 
 const commentSchema = new Schema({
-    comment: String,
-    userId: {
+    comment: {
+        type: String,
+        required: true,
+        maxLength: 280,
+    },
+    commentId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        default: () => new Schema.Types.ObjectId,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     },
 });
 

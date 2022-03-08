@@ -2,10 +2,11 @@ const { Comment } = require('../model');
 
 module.exports = {
     createComment: async(req, res) => {
-        const { comment } = req.body;
+        const { comment, username } = req.body;
         try {
             const newComment = await Comment.create({
                 comment,
+                username,
             });
             res.json(newComment);
         } catch (error) {

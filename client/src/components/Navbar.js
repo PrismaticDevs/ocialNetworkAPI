@@ -28,7 +28,7 @@ const Navbar = () => {
             <a href="/account">Account</a>
           </li>
           <li>
-            <a className="danger" href="/login" onClick={logout}>
+            <a className="danger logout" href="/login" onClick={logout}>
               Logout
             </a>
           </li>

@@ -97,4 +97,15 @@ module.exports = {
     logout: (req, res) => {
         token = null;
     },
+    addFriend: async(req, res) => {
+        const { userId, friendId } = req.params;
+        const updatedUser = await User.findOneAndUpdate({
+            _id: userId,
+        }, {
+            $addToSet: {
+                friends: friendId,
+            }
+        })
+        res.json(updatedUser);
+    }
 }
