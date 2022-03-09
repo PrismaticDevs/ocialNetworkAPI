@@ -8,12 +8,13 @@ const thoughtSchema = new Schema({
         maxLength: 280,
     },
     username: {
-        type: String,
+        type: Schema.Types.String,
         required: true,
+        ref: "User",
     },
-    comments: [{
+    reactions: [{
         type: Schema.Types.ObjectId,
-        ref: 'Comment'
+        ref: 'Reaction'
     }],
     createdAt: {
         type: Date,

@@ -41,6 +41,15 @@ const userSchema = new Schema({
     },
 });
 
+userSchema.virtual('friendName').get(function() {
+    return this.username;
+}, {
+    toJSON: {
+        virtuals: true
+    },
+    id: false,
+})
+
 const User = model('User', userSchema);
 
 module.exports = User;
